@@ -5,5 +5,6 @@ type Setup struct {
 	MasterKey  string `valid:"required"`
 	PrivateKey string `valid:"required"`
 	PublicKey  string `valid:"required"`
+	Token      string `valid:"required"`
 	IsLive     bool
 }

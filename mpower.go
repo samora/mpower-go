@@ -40,6 +40,7 @@ func New(setup *Setup, store *Store) *MPower {
 	header.Add("MP-Master-Key", mpower.setup.MasterKey)
 	header.Add("MP-Private-Key", mpower.setup.PrivateKey)
 	header.Add("MP-Public-Key", mpower.setup.PublicKey)
+	header.Add("MP-Token", mpower.setup.Token)
 	mpower.session = &napping.Session{Header: &header}
 
 	return mpower
@@ -66,6 +67,20 @@ func (m *MPower) DirectMobileCharge(name, email, mobile, wallet string,
 	}
 	response := new(DirectMobileChargeResponse)
 	_, err := m.session.Post(m.baseURL+"/direct-mobile/charge", &payload, response, nil)
+	if err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
+func (m *MPower) DirectMobileStatus(token string) (*DirectMobileStatusResponse, error) {
+	payload := struct {
+		Token string `json:"token"`
+	}{
+		Token: token,
+	}
+	response := new(DirectMobileStatusResponse)
+	_, err := m.session.Post(m.baseURL+"/direct-mobile/status", &payload, response, nil)
 	if err != nil {
 		return nil, err
 	}
