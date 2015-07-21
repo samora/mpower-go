@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/asaskevich/govalidator"
-	"github.com/jmcvetta/napping"
+	"github.com/samora/mpower-go/Godeps/_workspace/src/github.com/asaskevich/govalidator"
+	"github.com/samora/mpower-go/Godeps/_workspace/src/github.com/jmcvetta/napping"
 )
 
 type MPower struct {
