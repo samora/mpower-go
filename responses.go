@@ -27,3 +27,7 @@ type DirectMobileStatusResponse struct {
 	MobileInvoiceNumber string `json:"mobile_invoice_number"`
 	CancelReason        string `json:"cancel_reason"`
 }
+
+func (r Response) IsSuccess() bool {
+	return r.ResponseCode == "00"
+}
