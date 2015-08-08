@@ -5,6 +5,12 @@ type Response struct {
 	ResponseText string `json:"response_text"`
 }
 
+type DirectPayResponse struct {
+	*Response
+	Description   string `json:"description"`
+	TransactionID string `json:"transaction_id"`
+}
+
 type DirectMobileChargeResponse struct {
 	*Response
 	Description         string `json:"description"`

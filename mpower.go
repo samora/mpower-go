@@ -8,6 +8,7 @@ import (
 	"github.com/samora/mpower-go/Godeps/_workspace/src/github.com/jmcvetta/napping"
 )
 
+// MPower object.
 type MPower struct {
 	baseURL string
 	setup   *Setup
@@ -46,43 +47,49 @@ func New(setup *Setup, store *Store) *MPower {
 	return mpower
 }
 
+// DirectPay transfers funds to another MPower account.
+func (m *MPower) DirectPay(account string, amount float64) (*DirectPayResponse, error) {
+	payload := directPayPayload{
+		AccountAlias: account,
+		Amount:       amount,
+	}
+	response := DirectPayResponse{}
+	_, err := m.session.Post(m.baseURL+"/direct-pay/credit-account", &payload, &response, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &response, nil
+}
+
 // DirectMobileCharge charges mobile wallet by pushing a bill prompt to handset.
 func (m *MPower) DirectMobileCharge(name, email, mobile, wallet string,
 	amount float64) (*DirectMobileChargeResponse, error) {
 
-	payload := struct {
-		CustomerName   string `json:"customer_name"`
-		CustomerPhone  string `json:"customer_phone"`
-		CustomerEmail  string `json:"customer_email"`
-		WalletProvider string `json:"wallet_provider"`
-		MerchantName   string `json:"merchant_name"`
-		Amount         string `json:"amount"`
-	}{
+	payload := directMobileChargePayload{
 		CustomerName:   name,
 		CustomerPhone:  mobile,
 		CustomerEmail:  email,
 		WalletProvider: wallet,
 		MerchantName:   m.store.Name,
-		Amount:         govalidator.ToString(amount),
+		Amount:         amount,
 	}
-	response := new(DirectMobileChargeResponse)
-	_, err := m.session.Post(m.baseURL+"/direct-mobile/charge", &payload, response, nil)
+	response := DirectMobileChargeResponse{}
+	_, err := m.session.Post(m.baseURL+"/direct-mobile/charge", &payload, &response, nil)
 	if err != nil {
 		return nil, err
 	}
-	return response, nil
+	return &response, nil
 }
 
+// DirectMobileStatus checks the status of direct mobile charge.
 func (m *MPower) DirectMobileStatus(token string) (*DirectMobileStatusResponse, error) {
-	payload := struct {
-		Token string `json:"token"`
-	}{
+	payload := directMobileStatusPayload{
 		Token: token,
 	}
-	response := new(DirectMobileStatusResponse)
-	_, err := m.session.Post(m.baseURL+"/direct-mobile/status", &payload, response, nil)
+	response := DirectMobileStatusResponse{}
+	_, err := m.session.Post(m.baseURL+"/direct-mobile/status", &payload, &response, nil)
 	if err != nil {
 		return nil, err
 	}
-	return response, nil
+	return &response, nil
 }
