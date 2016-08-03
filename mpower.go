@@ -17,7 +17,7 @@ type MPower struct {
 }
 
 // New MPower object
-func New(setup *Setup, store *Store) *MPower {
+func New(setup *Setup, store *Store, client *http.Client) *MPower {
 	_, err := govalidator.ValidateStruct(setup)
 	if err != nil {
 		log.Panicln(err)
@@ -42,7 +42,13 @@ func New(setup *Setup, store *Store) *MPower {
 	header.Add("MP-Private-Key", mpower.setup.PrivateKey)
 	header.Add("MP-Public-Key", mpower.setup.PublicKey)
 	header.Add("MP-Token", mpower.setup.Token)
-	mpower.session = &napping.Session{Header: &header}
+
+	// http client
+	if client == nil {
+		client = http.DefaultClient
+	}
+
+	mpower.session = &napping.Session{Header: &header, Client: client}
 
 	return mpower
 }
