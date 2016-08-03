@@ -11,18 +11,18 @@ import (
 // MPower object.
 type MPower struct {
 	baseURL string
-	setup   *Setup
-	store   *Store
+	setup   Setup
+	store   Store
 	session *napping.Session
 }
 
 // New MPower object
-func New(setup *Setup, store *Store, client *http.Client) *MPower {
-	_, err := govalidator.ValidateStruct(setup)
+func New(client *http.Client, setup Setup, store Store) *MPower {
+	_, err := govalidator.ValidateStruct(&setup)
 	if err != nil {
 		log.Panicln(err)
 	}
-	_, err = govalidator.ValidateStruct(store)
+	_, err = govalidator.ValidateStruct(&store)
 	if err != nil {
 		log.Panicln(err)
 	}
