@@ -31,10 +31,10 @@ go get github.com/jmcvetta/napping
 
 Napping is versioned using [`gopkg.in`](http://gopkg.in).  
 
-Current release is `v1.1`.
+Current release is `v3`.
 
 ```
-go get gopkg.in/jmcvetta/napping.v1
+go get gopkg.in/jmcvetta/napping.v3
 ```
 
 
@@ -47,23 +47,19 @@ Check out [github_auth_token][auth-token] for a working example
 showing how to retrieve an auth token from the Github API.
 
 
-## Production Note
+## Support
 
-If you decide to use Napping in a production system please let me know.  All
-API changes will be made via Pull Request, so it's highly recommended you Watch
-the repo Issues.  The API is fairly stable but there may be additions and small 
-changes from time to time.
+Paid support, development, and consulting services are available from [Silicon
+Beach Heavy Industries](http://siliconheavy.com).
 
 
-# Contributing
 
-Contributions in the form of Pull Requests or Issues are gladly accepted.
-Before submitting a Pull Request, please ensure your code passes all tests, and
-that your changes do not decrease test coverage.  I.e. if you add new features,
-also add corresponding new tests.
+## Contributing
 
-When submitting an Issue, if possible please include a failing test case that 
-demonstrates the problem.
+Contributions in the form of Pull Requests are gladly accepted.  Before
+submitting a PR, please ensure your code passes all tests, and that your
+changes do not decrease test coverage.  I.e. if you add new features also add
+corresponding new tests.
 
 
 ## License
