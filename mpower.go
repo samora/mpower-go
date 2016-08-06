@@ -80,7 +80,8 @@ func (m *MPower) DirectMobileCharge(name, email, mobile, wallet string,
 		Amount:         amount,
 	}
 	response := DirectMobileChargeResponse{}
-	_, err := m.session.Post(m.baseURL+"/direct-mobile/charge", &payload, &response, nil)
+	r, err := m.session.Post(m.baseURL+"/direct-mobile/charge", &payload, &response, nil)
+	log.Printf("%+v", r)
 	if err != nil {
 		return nil, err
 	}
