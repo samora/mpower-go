@@ -66,7 +66,7 @@ func (m MPower) DirectPay(payload DirectPayPayload) (*DirectPayResponse, error) 
 // DirectMobileCharge charges mobile wallet by pushing a bill prompt to handset.
 func (m MPower) DirectMobileCharge(payload DirectMobileChargePayload) (*DirectMobileChargeResponse, error) {
 	response := DirectMobileChargeResponse{}
-	r, err := m.session.Post(m.baseURL+"/direct-mobile/charge", &payload, &response, nil)
+	_, err := m.session.Post(m.baseURL+"/direct-mobile/charge", &payload, &response, nil)
 	if err != nil {
 		return nil, err
 	}
