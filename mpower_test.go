@@ -18,11 +18,20 @@ func TestMPower(t *testing.T) {
 		Name: "Demo Store",
 	}
 	m := New(nil, setup, store)
-	directPayResponse, err := m.DirectPay("samora", 10)
+	directPayResponse, err := m.DirectPay(DirectPayPayload{
+		AccountAlias: "samora",
+		Amount:       10,
+	})
 	assert.NoError(t, err)
 	assert.True(t, directPayResponse.IsSuccess())
 
-	directMobileCharge, err := m.DirectMobileCharge("Samora", "samora@example.com", "0561516300", "airtel", 10)
+	directMobileCharge, err := m.DirectMobileCharge(DirectMobileChargePayload{
+		CustomerName:   "Samora",
+		CustomerEmail:  "samora@example.com",
+		CustomerPhone:  "0561516300",
+		WalletProvider: "airtel",
+		Amount:         10,
+	})
 	assert.NoError(t, err)
 	assert.True(t, directMobileCharge.IsSuccess())
 }

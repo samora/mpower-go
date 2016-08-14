@@ -54,11 +54,7 @@ func New(client *http.Client, setup Setup, store Store) *MPower {
 }
 
 // DirectPay transfers funds to another MPower account.
-func (m *MPower) DirectPay(account string, amount float64) (*DirectPayResponse, error) {
-	payload := directPayPayload{
-		AccountAlias: account,
-		Amount:       amount,
-	}
+func (m MPower) DirectPay(payload DirectPayPayload) (*DirectPayResponse, error) {
 	response := DirectPayResponse{}
 	_, err := m.session.Post(m.baseURL+"/direct-pay/credit-account", &payload, &response, nil)
 	if err != nil {
@@ -68,20 +64,9 @@ func (m *MPower) DirectPay(account string, amount float64) (*DirectPayResponse, 
 }
 
 // DirectMobileCharge charges mobile wallet by pushing a bill prompt to handset.
-func (m *MPower) DirectMobileCharge(name, email, mobile, wallet string,
-	amount float64) (*DirectMobileChargeResponse, error) {
-
-	payload := directMobileChargePayload{
-		CustomerName:   name,
-		CustomerPhone:  mobile,
-		CustomerEmail:  email,
-		WalletProvider: wallet,
-		MerchantName:   m.store.Name,
-		Amount:         amount,
-	}
+func (m MPower) DirectMobileCharge(payload DirectMobileChargePayload) (*DirectMobileChargeResponse, error) {
 	response := DirectMobileChargeResponse{}
 	r, err := m.session.Post(m.baseURL+"/direct-mobile/charge", &payload, &response, nil)
-	log.Printf("%+v", r)
 	if err != nil {
 		return nil, err
 	}
@@ -89,12 +74,19 @@ func (m *MPower) DirectMobileCharge(name, email, mobile, wallet string,
 }
 
 // DirectMobileStatus checks the status of direct mobile charge.
-func (m *MPower) DirectMobileStatus(token string) (*DirectMobileStatusResponse, error) {
-	payload := directMobileStatusPayload{
-		Token: token,
-	}
+func (m MPower) DirectMobileStatus(payload DirectMobileStatusPayload) (*DirectMobileStatusResponse, error) {
 	response := DirectMobileStatusResponse{}
 	_, err := m.session.Post(m.baseURL+"/direct-mobile/status", &payload, &response, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &response, nil
+}
+
+// DirectCard charges a bank card.
+func (m MPower) DirectCard(payload DirectCardPayload) (*DirectCardResponse, error) {
+	response := DirectCardResponse{}
+	_, err := m.session.Post(m.baseURL+"/direct-card/processcard", &payload, &response, nil)
 	if err != nil {
 		return nil, err
 	}

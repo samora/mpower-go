@@ -5,6 +5,10 @@ type Response struct {
 	ResponseText string `json:"response_text"`
 }
 
+func (r Response) IsSuccess() bool {
+	return r.ResponseCode == "00"
+}
+
 type DirectPayResponse struct {
 	*Response
 	Description   string `json:"description"`
@@ -28,6 +32,9 @@ type DirectMobileStatusResponse struct {
 	CancelReason        string `json:"cancel_reason"`
 }
 
-func (r Response) IsSuccess() bool {
-	return r.ResponseCode == "00"
+type DirectCardResponse struct {
+	*Response
+	Description        string `json:"description"`
+	TransactionID      string `json:"transaction_id"`
+	UnityTransactionID string `json:"unity_transaction_id"`
 }
