@@ -21,7 +21,7 @@ type DirectMobileStatusPayload struct {
 type DirectCardPayload struct {
 	Name        string  `json:"card_name"`
 	Number      string  `json:"card_number"`
-	CVC         string  `json:"cvc"`
+	CVC         string  `json:"card_cvc"`
 	ExpiryMonth string  `json:"exp_month"`
 	ExpiryYear  string  `json:"exp_year"`
 	Amount      float64 `json:"amount"`
