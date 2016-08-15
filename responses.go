@@ -34,7 +34,7 @@ type DirectMobileStatusResponse struct {
 
 type DirectCardResponse struct {
 	*Response
-	Description        string `json:"description"`
-	TransactionID      string `json:"transaction_id"`
-	UnityTransactionID string `json:"unity_transaction_id"`
+	Description   string `json:"description"`
+	TransactionID string `json:"transaction_id"`
+	// UnityTransactionID string `json:"unity_transaction_id"`
 }
