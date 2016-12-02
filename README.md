@@ -1,6 +1,6 @@
 # mpower-go
 
-A [Go](https://golang.org) library for [MPower Payments API](https://mpowerpayments.com).
+A [Go](https://golang.org) library for [MPower Payments](https://mpowerpayments.com) API.
 
 View [docs](https://godoc.org/github.com/samora/mpower-go).
 
