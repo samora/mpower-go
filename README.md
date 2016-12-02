@@ -1,13 +1,15 @@
 # mpower-go
 
-A limited, but simple lib for [MPower](https://mpowerpayments.com).
+A [Go](https://golang.org) library for [MPower Payments API](https://mpowerpayments.com).
 
-View [docs](http://godoc.org/github.com/samora/mpower-go).
+View [docs](https://godoc.org/github.com/samora/mpower-go).
 
 ## Features
 
 * MPower to MPower payments
 * Direct mobile money charge
 * Check direct mobile money charge status
+* Direct card charge
 * Use custom HTTP client (great for services like appengine)
 
+__Note:__ No HTTP redirect checkout here.
